@@ -69,7 +69,7 @@ https://wiki.openstack.org/wiki/Neutron/Networking-vSphere
 6. Install clean Ubuntu 14.04 server on each OVSvAPP VM.
 
 
-### Setup OVSvAPP VM and Neutron agent
+### Setup OVSvAPP VM and Neutron agent (one per ESX/ESXi host in cluster)
 
 Following instructions should be executed on OVSvAPP VM.
 
