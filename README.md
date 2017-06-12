@@ -258,7 +258,7 @@ Following instructions should be executed on OVSvAPP VM.
 
     NOTE: OVSvAPP vCenter driver from `liberty-eol` branch might need
     following patch to be applied after install to the file
-    `/home/ovsvapp/lib/python2.7/site-packages/networking_vsphere/nova/virt/vmwareapi/ovsvapp_vc_driver.py`:
+    `/usr/local/lib/python2.7/dist-packages/networking_vsphere/nova/virt/vmwareapi/ovsvapp_vc_driver.py`:
 
     ```
     --- ovsvapp_vc_driver.py.orig	2017-05-20 15:43:06.000000000 -0700
