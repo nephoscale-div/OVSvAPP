@@ -216,6 +216,8 @@ Following instructions should be executed on OVSvAPP VM.
     # add data port group inetrface
     ovs-vsctl add-port br-eth1 eth1
     ```
+    NOTE: Ignore error messages on steps of creation of `patch-integration`, `patch-security`, `int-br-eth1` and `phy-br-eth1` ports.
+    
     *Be aware: bridges names are mandatory!*
 
 
