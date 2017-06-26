@@ -68,9 +68,7 @@ https://wiki.openstack.org/wiki/Neutron/Networking-vSphere
 4. Create port group `ext-dvs-trunk` configured as VLAN trunk with VLAN IDs
    range of tenant VLANs (500-2000).
 
-
-    *NOTE:* See detaied [vCenter DVS howto](vcenter-dvs-howto.md) for more info on steps 1-4.
-
+*NOTE:* See detaied [vCenter DVS howto](vcenter-dvs-howto.md) for more info on steps 1-4.
 
 5. Create VM (OVSvAPP), one per each ESX/ESXi host, with following allocation:
     - network adapter 1 (VM NIC eth0) bound to port group `int-dvs-trunk`
