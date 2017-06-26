@@ -22,7 +22,8 @@ https://wiki.openstack.org/wiki/Neutron/Networking-vSphere
     sudo python setup.py install
     ```
 
-2. Allow OVSvAPP network mechanism on Neutron/Network server/s. Edit `/etc/neutron/plugins/ml2/ml2_conf.ini`
+2. Allow OVSvAPP network mechanism on Neutron/Network server/s.
+   Edit `/etc/neutron/plugins/ml2/ml2_conf.ini`
     ```
     ...
 
@@ -51,16 +52,21 @@ https://wiki.openstack.org/wiki/Neutron/Networking-vSphere
 
 ### Configure VMware vSphere
 
-1. Create distributed virtual switch `int-dvs`, one per each ESX/ESXi host, **without** any VNICs added into uplinks (only host should be added).
+1. Create distributed virtual switch `int-dvs`, one per each ESX/ESXi host,
+   **without** any VNICs added into uplinks (only host should be added).
 
-2. Create port group `int-dvs-trunk` on DVS `int-dvs` configured as a VLAN trunk with VLAN IDs range of tenant VLANs (500-2000).
+2. Create port group `int-dvs-trunk` on DVS `int-dvs` configured as a VLAN trunk
+   with VLAN IDs range of tenant VLANs (500-2000).
 
-3. Create distributed virtual switch `ext-dvs` with configured uplink, connected to physical tenants network.
+3. Create distributed virtual switch `ext-dvs` with configured uplink, connected
+   to physical tenants network.
 
+4. Create port group `ext-dvs-trunk` configured as VLAN trunk with VLAN IDs
+   range of tenant VLANs (500-2000).
 
-4. Create port group `ext-dvs-trunk` configured as VLAN trunk with VLAN IDs range of tenant VLANs (500-2000).
+See detaied [vCenter DVS howto](vcenter-dvs-howto.md) for more info on steps 1-4.
 
-5. Create VM (OVSvAPP), one per each ESX/ESXi host, with following network configuration:
+5. Create VM (OVSvAPP), one per each ESX/ESXi host, with following allocation:
     - network adapter 1 (VM NIC eth0) bound to port group `int-dvs-trunk`
     - network adapter 2 (VM NIC eth1) bound to port group `ext-dvs-trunk`
     - network adapter 3 (VM NIC eth2) bound to management network
@@ -95,7 +101,8 @@ Following instructions should be executed on OVSvAPP VM.
 
 3. Configure Neutron and OVSvAPP agent
 
-    - Edit `/etc/neutron/neutron.conf`; make the config the same as on other network nodes (Keystone auth info, RabbitMQ connection and etc)
+    - Edit `/etc/neutron/neutron.conf`; make the config the same as on other
+      network nodes (Keystone auth info, RabbitMQ connection and etc)
 
     - Edit `/etc/neutron/plugins/ml2/ovsvapp_agent.ini`; add following options:
       ```
@@ -216,8 +223,9 @@ Following instructions should be executed on OVSvAPP VM.
     # add data port group inetrface
     ovs-vsctl add-port br-eth1 eth1
     ```
-    NOTE: Ignore error messages on steps of creation of `patch-integration`, `patch-security`, `int-br-eth1` and `phy-br-eth1` ports.
-    
+    NOTE: Ignore error messages on steps of creation of `patch-integration`,
+          `patch-security`, `int-br-eth1` and `phy-br-eth1` ports.
+
     *Be aware: bridges names are mandatory!*
 
 
@@ -282,7 +290,8 @@ Following instructions should be executed on OVSvAPP VM.
 
 4. Configure Nova compute
 
-  - Edit `/etc/nova/nova.conf`; make the config as on other compute nodes (Keystone authorization, RabbitMQ connection, etc)
+  - Edit `/etc/nova/nova.conf`; make the config as on other compute nodes
+    (Keystone authorization, RabbitMQ connection, etc)
 
   - Edit `/etc/nova/nova-compute.conf`, add follwing options:
     ```
@@ -309,5 +318,5 @@ Following instructions should be executed on OVSvAPP VM.
     service nova-compute restart
     ```
 
-    After this step, the new Nova compute service with `vmware` type should appear
-    in list of Nova hypervisors.
+    After this step, the new Nova compute service with `vmware` type should
+    appear in list of Nova hypervisors.
