@@ -1,3 +1,7 @@
+OVSvAPP is an opensource solution for integrating VMware vSphere into OpenStack Cloud Computing platform. In short OVSvAPP is a special VM instance created on each ESX/ESXi VMware host, which is planned to be integrated into OpenStack. It solves following tasks: create and bind VM instances (created by VMware compute (nova) plugin) into special port group with dedicated tenant network VLAN and interconnect it with OpenStack services like Neutron, Glance and etc through OpenVSwitch (configured inside of OVSvAPP VM). Also, OVSvAPP handles Neutron security rules defined by tenants.
+
+This solution requires working VMware vCenter with all hosts configured in it. 
+
 This step-by-step howto describes installation and configuration of OVSvAPP
 Neutron agent. Please, refer to following link for main description of
 OVSvAPP architecture and network mechanisms:
@@ -64,7 +68,9 @@ https://wiki.openstack.org/wiki/Neutron/Networking-vSphere
 4. Create port group `ext-dvs-trunk` configured as VLAN trunk with VLAN IDs
    range of tenant VLANs (500-2000).
 
-See detaied [vCenter DVS howto](vcenter-dvs-howto.md) for more info on steps 1-4.
+
+    *NOTE:* See detaied [vCenter DVS howto](vcenter-dvs-howto.md) for more info on steps 1-4.
+
 
 5. Create VM (OVSvAPP), one per each ESX/ESXi host, with following allocation:
     - network adapter 1 (VM NIC eth0) bound to port group `int-dvs-trunk`
