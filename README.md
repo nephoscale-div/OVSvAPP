@@ -1,6 +1,15 @@
-OVSvAPP is an opensource solution for integrating VMware vSphere into OpenStack Cloud Computing platform. In short OVSvAPP is a special VM instance created on each ESX/ESXi VMware host, which is planned to be integrated into OpenStack. It solves following tasks: create special port group and bind VM instances (created by VMware compute (nova) plugin) with it. This port group has dedicated tenant network VLAN ID and is interconnected with OpenStack services like Neutron, Glance and etc through OpenVSwitch (configured inside of OVSvAPP VM). Also, OVSvAPP handles Neutron security rules defined by tenants.
+OVSvAPP is an opensource solution for integrating VMware vSphere into OpenStack
+Cloud Computing platform. In short OVSvAPP is a special VM instance created on
+each ESX/ESXi VMware host, which is planned to be integrated into OpenStack. It
+solves following tasks: create special port group and bind VM instances (created
+by VMware compute (nova) plugin) with it. This port group has dedicated tenant
+network VLAN ID and is interconnected with OpenStack services like Neutron,
+Glance and etc through OpenVSwitch (configured inside of OVSvAPP VM). Also,
+OVSvAPP handles Neutron security rules defined by tenants.
 
-OVSvAPP is a connection point of VMware vSphere and OpenStack. This solution requires working VMware vCenter configured with all hosts planned to be used as hypervisors in OpenStack.
+OVSvAPP is a connection point of VMware vSphere and OpenStack. This solution
+requires working VMware vCenter configured with all hosts planned to be used as
+hypervisors in OpenStack.
 
 This step-by-step howto describes installation and configuration of OVSvAPP
 Neutron agent. Please, refer to following link for main description of
@@ -68,13 +77,16 @@ https://wiki.openstack.org/wiki/Neutron/Networking-vSphere
 4. Create port group `ext-dvs-trunk` configured as VLAN trunk with VLAN IDs
    range of tenant VLANs (500-2000).
 
-   *NOTE:* See detaied [vCenter DVS howto](vcenter-dvs-howto.md) for more info on steps 1-4.
+   *NOTE:* See detaied [vCenter DVS howto](vcenter-dvs-howto.md) for more info
+   on steps 1-4.
 
 5. Create VM (OVSvAPP), one per each ESX/ESXi host, with following allocation:
     - network adapter 1 (VM NIC eth0) bound to port group `int-dvs-trunk`
     - network adapter 2 (VM NIC eth1) bound to port group `ext-dvs-trunk`
     - network adapter 3 (VM NIC eth2) bound to management network
 
+    *NOTE:* See detaied [vCenter VM howto](vcenter-vm-howto.md) for more info
+    on step 5.
 
 6. Install clean Ubuntu 14.04 server on each OVSvAPP VM.
 

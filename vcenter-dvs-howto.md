@@ -20,13 +20,17 @@
 
 7. Check the ESXi host which this DVS is created for
 
-8. Do **not** select any physical adapters if you are configuring *internal* DVS, and select at least one physical adapter, that is connected to phisical network, if you are configuring *external* DVS
+8. Do **not** select any physical adapters if you are configuring *internal*
+   DVS, and select at least one physical adapter, that is connected to phisical
+   network, if you are configuring *external* DVS
 
-   *NOTE:* Ignore warning about physical adapters absense in case if you are configuring *internal* DVS (click *Yes*)
+   *NOTE:* Ignore warning about physical adapters absense in case if you are
+   configuring *internal* DVS (click *Yes*)
 
 ![Figure 04](img/vcenter-dvs-howto/figure_04.png)
 
-9. In appeared window uncheck *Automatically create a default port group*; click *Finish*
+9. In appeared window uncheck *Automatically create a default port group*;
+   click *Finish*
 
 ![Figure 05](img/vcenter-dvs-howto/figure_05.png)
 
@@ -38,7 +42,8 @@
 
 ![Figure 06](img/vcenter-dvs-howto/figure_06.png)
 
-13. On *General* page adjust uplonk port group *Name* (`int-dvs-uplink` for *internal* DVS, `ext-dvs-uplink` for *external DVS)
+13. On *General* page adjust uplonk port group *Name* (`int-dvs-uplink` for
+    *internal* DVS, `ext-dvs-uplink` for *external DVS)
 
 ![Figure 07](img/vcenter-dvs-howto/figure_07.png)
 
@@ -49,7 +54,8 @@
 ![Figure 08](img/vcenter-dvs-howto/figure_08.png)
 
 
-16. In appeared window, set *Name* of port group (`int-dvs-trunk` for *internal* DVS, `ext-dvs-trunk` for *external* DVS)
+16. In appeared window, set *Name* of port group (`int-dvs-trunk` for *internal*
+    DVS, `ext-dvs-trunk` for *external* DVS)
 
 17. Set *Number of Ports* (`1`)
 
@@ -63,4 +69,7 @@
 
 ![Figure 09](img/vcenter-dvs-howto/figure_10.png)
 
-At this point you should have configured vCenter Distributed Switch(es). The main difference between *internal* and *external* DVSes (except their names and port group identifiers) is that *external* DVS **has** a physical adapter(s) in its uplink port group, and *internal* DVS is **not**.
+At this point you should have configured vCenter Distributed Switch(es).
+The main difference between *internal* and *external* DVSes (except their names
+and port group identifiers) is that *external* DVS **has** a physical adapter(s)
+in its uplink port group, and *internal* DVS is **not**.
