@@ -244,8 +244,23 @@ Following instructions should be executed on OVSvAPP VM.
 
     *Be aware: bridges names are mandatory!*
 
+5. Edit `/etc/network/interfaces`
+    ```
+    auto eth0
+    iface eth0 inet manual
 
-5. Start Neutron agent service
+    auto eth1
+    iface eth1 inet static
+    ```
+
+  Bring up eth0 and eth1:
+
+    ```
+    sudo ifup eth0
+    sudo ifup eth1
+    ```
+
+6. Start Neutron agent service
     ```
     sudo neutron-ovsvapp-agent --config-file /etc/neutron/neutron.conf \
     --config-file /etc/neutron/plugins/ml2/ovsvapp_agent.ini
@@ -328,11 +343,47 @@ Following instructions should be executed on OVSvAPP VM.
     vnc_port_total = 10000
     ```
 
-5. Restart Nova service:
+5. Install Neutron openvswitch agent (it is used for initial fake VM port
+   binding on compute node)
+   ```
+   sudo apt get install neutron-plugin-openvswitch-agent
+   ```
+
+  - Preconfigure fake bridges for openvswitch agents:
+    ```
+    sudo ovs-vsctl add-br br-int
+    sudo ovs-vsctl add-br br-vlan
+    ```
+
+  - Edit `/etc/neutron/neutron.conf`; make the config the same as on other
+    compute nodes (Keystone auth info, RabbitMQ, Neutron connection and etc)
+
+  - Edit `/etc/neutron/plugins/ml2/openvswitch_agent.ini`; add set following
+    options as:
+    ```
+    [ovs]
+    ...
+    integration_bridge = br-int
+
+    # Provide bridge mappings for VLAN networks.
+    #
+    # Example:
+    # bridge_mappings = physnet:br-eth1
+    # where `eth1` is data interface and `physnet` is name of **physical**
+    # network as it defined in Neutron.
+    bridge_mappings = <bridge_mappings>
+    ...
+    ```
+
+    This should be enough for starting openvswitch agent.
+
+6. Restart Nova service and Neutron agent:
 
     ```
     service nova-compute restart
+    service neutron-openvswitch-agent restart
     ```
 
     After this step, the new Nova compute service with `vmware` type should
-    appear in list of Nova hypervisors.
+    appear in list of Nova hypervisors and openvswitch agent in list of Neutron
+    agents.
